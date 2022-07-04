@@ -1,0 +1,1 @@
+Detection of transitions from sitting to standing from Gyroscopes and accelerometers.
