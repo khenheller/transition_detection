@@ -11,14 +11,14 @@ def find_stillness(
     """find stillness period.
     Parameters
     ----------
-    a_mag:
-    fs:
+    a_mag: the magnitude of acceleration
+    fs: sample rate
     lying_vec_lumbar:
 
     Returns
     -------
-    s_start_pt, 
-    s_end_pt
+    s_start_pt: 
+    s_end_pt:
     """
 
 #accRSD = movstd(Amag,100);
