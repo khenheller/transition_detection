@@ -22,9 +22,9 @@ def clean_pt(
     for ii in range(len(locs)):
         try:
             still_before_mat= ix_stillnes[range(locs[ii]-15*fs, locs[ii])]
-            still_before = (still_before_mat.sum(axis=1))/(15*fs)
+            still_before = (still_before_mat.sum(axis=0))/(15*fs)
             still_after_mat = ix_stillnes[range(locs[ii]+1, locs[ii]+15*fs+1)]
-            still_after = (still_after_mat.sum(axis=1))/(15*fs)
+            still_after = (still_after_mat.sum(axis=0))/(15*fs)
             if still_before < 0.5 and still_after < 0.5:
                 delete_locs = [[delete_locs],[ii]]
                 continue
