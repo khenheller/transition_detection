@@ -18,7 +18,7 @@ def find_pt_with_theta(pitch: np.ndarray, fs: int) -> Tuple(np.ndarray, np.ndarr
     Returns:
         locs (np.ndarray): peak indices
         sin_theta_pks (np.ndarray): peak heights
-    """    
+    """   
     if np.any(np.isnan(pitch)):
         raise ValueError("Pitch contains nans")
 
@@ -28,7 +28,6 @@ def find_pt_with_theta(pitch: np.ndarray, fs: int) -> Tuple(np.ndarray, np.ndarr
 
     # Theta Discrete wave transform.
     theta_dwt = []
-    theta0 = 0
     # Iterate over each minute.
     for section in y:
         # Calc pitch integral.
@@ -49,7 +48,7 @@ def find_pt_with_theta(pitch: np.ndarray, fs: int) -> Tuple(np.ndarray, np.ndarr
         theta_dwt = np.vstack((theta_dwt, dwt))
 
     # Relevant angles.
-    theta_dwt = theta_dwt[0 : pitch.size]
+    theta_dwt = theta_dwt[0: pitch.size]
     # Sinus.
     sin_theta = np.sin(np.deg2rad(theta_dwt))
     # Find peaks in angle, these are posture transitions.
