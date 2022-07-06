@@ -25,17 +25,19 @@ listing_lying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lyin
 (listing_acc,listing_gait,listing_lying,listing_lumbar,listing_thigh)= files_lists(listing_acc_path,listing_gait_path,listing_lying_path)
 
 for ff in range(len(listing_lumbar)):
-    (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh)= load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
+    (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh) = load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
 
-    (d1,d2,d3)=preprocessing(listing_lumbar)
+    (d1,d2,d3)=preprocessing(lumbar_acc)
+    # {'acc': acc, 'v': v, 'ml': ml, 'ap': ap},
+    # {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
+    # {'magnitude': a_mag, 'fs': fs}
+
+    (s_start_pt, s_end_pt, ix_stillnes)=find_stillness(d3['magnitude'], d3['fs'], lying_vec_lumbar)
 
 
-    (s_start_pt, s_end_pt, ix_stillnes)=find_stillness(a_mag,fs,lying_vec_lumbar)
+    (locs, sin_theta_pks)=find_pt_with_theta(d2['pitch'], d3['fs'])
 
-
-    (locs, sin_theta_pks)=find_pt_with_theta(pitch,fs)
-
-    clean_pt(locs,ix_stillnes,fs,s_start_pt,s_end_pt)
+    clean_pt(locs,ix_stillnes, d3['fs'],s_start_pt,s_end_pt)
 
 
 
@@ -55,9 +57,8 @@ for ff in range(len(listing_lumbar)):
 #Clean PT with no stillness before/after #169-186
 
 
-#  fuse = imufilter #234 maybe main
-
 #Postral Transition detection #234-338
+    #  fuse = imufilter #234 maybe main
 
 #    PT = sortrows([Sit2Stand;Stand2Sit],1); #main 352
 

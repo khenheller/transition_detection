@@ -62,7 +62,7 @@ def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_p
         raise ValueError(f'The thigh lying file doesnt exist for {subject_num}')
 
 
-
+    print("lumbar_acc=", lumbar_acc)
 
     return lumbar_acc, walking_vec_lumbar, lying_vec_lumbar, thigh_acc ,walking_vec_thigh, laying_vec_thigh
 
