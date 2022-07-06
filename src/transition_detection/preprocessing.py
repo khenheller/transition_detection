@@ -1,11 +1,9 @@
-import pandas as pd
 import numpy as np
 import scipy.signal
 from scipy.signal import butter, lfilter, freqz
-import matplotlib.pyplot as plt
 
 
-def preprocessing(listingLumbar: pd.DataFrame):
+def preprocessing(listingLumbar: np.ndarray):
     """
     The function filters the lumbar data via low pass filter, and divides the data to accelerometer and gyroscope values
 
