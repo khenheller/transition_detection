@@ -103,6 +103,6 @@ def find_stillness(
     lying_end_pt = np.argwhere(ix_lying==-1)
 
     s_end_pt[delete_short_segements] = []
-    return(s_start_pt, s_end_pt)
+    return(s_start_pt, s_end_pt, ix_stillnes)
 
 
