@@ -11,10 +11,14 @@ def find_stillness(
     """find stillness period.
     Parameters
     ----------
-    
+    a_mag:
+    fs:
+    lying_vec_lumbar:
 
     Returns
     -------
+    s_start_pt: 
+    s_end_pt
     """
 
 #accRSD = movstd(Amag,100);
@@ -60,17 +64,17 @@ def find_stillness(
 #deleteSpikes = find(sStartPt(2:end)-sEndPt(1:end-1) <= 2*fs);
 #sStartPt(deleteSpikes+1) = [];
 #sEndPt(deleteSpikes) = [];
-    deleteSpikes = np.argwhere(s_start_pt[1:-1] - s_end_pt[0:-2] <= 2*fs)
-    s_start_pt[deleteSpikes] = []
-    s_end_pt[deleteSpikes] = []
+    delete_spikes = np.argwhere(s_start_pt[1:-1] - s_end_pt[0:-2] <= 2*fs)
+    s_start_pt[delete_spikes] = []
+    s_end_pt[delete_spikes] = []
 
 #deleteShortSegements = find(sEndPt-sStartPt <= 2*fs);
 #sStartPt(deleteShortSegements) = [];
 #sEndPt(deleteShortSegements) = [];
 #ix_stillnes = zeros(size(ix_stillnes));
-    deleteShortSegements = np.argwhere(s_end_pt-s_start_pt <= 2*fs)
-    s_start_pt[deleteShortSegements] = []
-    s_end_pt[deleteShortSegements] = []
+    delete_short_segements = np.argwhere(s_end_pt-s_start_pt <= 2*fs)
+    s_start_pt[delete_short_segements] = []
+    s_end_pt[delete_short_segements] = []
     ix_stillnes = np.zeros(np.shape(ix_stillnes))
 
 #for kk=1:length(sStartPt)
@@ -98,6 +102,6 @@ def find_stillness(
     lying_start_pt = np.argwhere(ix_lying==1)
     lying_end_pt = np.argwhere(ix_lying==-1)
 
-
+    return s_start_pt, s_end_pt
 
 
