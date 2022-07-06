@@ -28,6 +28,11 @@ for ff in range(len(listing_lumbar)):
     (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh) = load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
 
     (d1,d2,d3)=preprocessing(lumbar_acc)
+    print("returned from preprocessing")
+    print("d1", d1)
+    print("d2", d2)
+    print("d3", d3)
+
     # {'acc': acc, 'v': v, 'ml': ml, 'ap': ap},
     # {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
     # {'magnitude': a_mag, 'fs': fs}
