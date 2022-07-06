@@ -12,6 +12,9 @@ import matplotlib.pyplot as plt
 from src.transition_detection.files_lists import files_lists
 from src.transition_detection.load_data import load_data
 from src.transition_detection.preprocessing import preprocessing
+from src.transition_detection.find_stillness import find_stillness
+from src.transition_detection.find_pt_with_theta import find_pt_with_theta
+from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
 
 
 listing_acc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
@@ -24,7 +27,19 @@ listing_lying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lyin
 for ff in range(len(listing_lumbar)):
     (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh)= load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
 
-    ({'acc': acc, 'v': v, 'ml': ml, 'ap': ap}, {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},{'magnitude': a_mag, 'fs': fs})=preprocessing(listing_lumbar)
+    (d1,d2,d3)=preprocessing(listing_lumbar)
+
+
+    (s_start_pt, s_end_pt, ix_stillnes)=find_stillness(a_mag,fs,lying_vec_lumbar)
+
+
+    (locs, sin_theta_pks)=find_pt_with_theta(pitch,fs)
+
+    clean_pt(locs,ix_stillnes,fs,s_start_pt,s_end_pt)
+
+
+
+
 
 
 # for loop for every file in the main script
