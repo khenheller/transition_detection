@@ -22,7 +22,7 @@ def find_stillness(
     """
 
 #accRSD = movstd(Amag,100);
-    acc_rsd = bn.move_std(a_mag, window=100)
+    acc_rsd = bn.move_std(a_mag, window=100) #Moving window standard deviation along the first axis
 
 # % gyrRSD = movstd(Gmag,100);
 # % accRM = movmean(Amag-9.81,100);
@@ -32,10 +32,10 @@ def find_stillness(
 #jerkRSD = movstd(jerk,100);
 #ix_stillnes = accRSD < 0.2 & abs(jerkRM) < 2.5 & jerkRSD < 3.5;    
 #ix_stillnes2 = diff(ix_stillnes);
-    jerk = np.gradient(a_mag, 1/fs)
-    jerk_rm = bn.move_mean(jerk, window=100)
-    jerk_rsd = bn.move_std(jerk, window=100)
-    ix_stillnes = acc_rsd < 0.2 and abs(jerk_rm) < 2.5 and jerk_rsd < 3.5  
+    jerk = np.gradient(a_mag, 1/fs) #Return the gradient of an array. 1/fs --> the space betweenthe array values
+    jerk_rm = bn.move_mean(jerk, window=100) #Moving window mean along the first axis
+    jerk_rsd = bn.move_std(jerk, window=100) #Moving window standard deviation along the first axis
+    ix_stillnes = acc_rsd < 0.2 and abs(jerk_rm) < 2.5 and jerk_rsd < 3.5 #define stillness  
     ix_stillnes2 = np.diff(ix_stillnes)
     
 #if ix_stillnes(1) == 1
@@ -54,8 +54,8 @@ def find_stillness(
 #if length(sStartPt) > length(sEndPt)
 #   sStartPt = sStartPt(1:end-1);
 #end
-    s_start_pt = np.argwhere(ix_stillnes2==1)
-    s_end_pt = np.argwhere(ix_stillnes2==-1)
+    s_start_pt = np.argwhere(ix_stillnes2==1) #the indexes where stillness starts 
+    s_end_pt = np.argwhere(ix_stillnes2==-1) #the indexes where stillness ends 
     if len(s_start_pt) > len(s_end_pt):
         s_start_pt = s_start_pt[0:-2]
 
@@ -64,7 +64,7 @@ def find_stillness(
 #deleteSpikes = find(sStartPt(2:end)-sEndPt(1:end-1) <= 2*fs);
 #sStartPt(deleteSpikes+1) = [];
 #sEndPt(deleteSpikes) = [];
-    delete_spikes = np.argwhere(s_start_pt[1:-1] - s_end_pt[0:-2] <= 2*fs)
+    delete_spikes = np.argwhere(s_start_pt[1:-1] - s_end_pt[0:-2] <= 2*fs) 
     s_start_pt[delete_spikes] = []
     s_end_pt[delete_spikes] = []
 
