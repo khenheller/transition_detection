@@ -33,9 +33,11 @@ def find_stillness(
 #ix_stillnes = accRSD < 0.2 & abs(jerkRM) < 2.5 & jerkRSD < 3.5;    
 #ix_stillnes2 = diff(ix_stillnes);
     jerk = np.gradient(a_mag, 1/fs) #Return the gradient of an array. 1/fs --> the space betweenthe array values
-    jerk_rm = bn.move_mean(jerk, window=100) #Moving window mean along the first axis
-    jerk_rsd = bn.move_std(jerk, window=100) #Moving window standard deviation along the first axis
-    ix_stillnes = acc_rsd < 0.2 and abs(jerk_rm) < 2.5 and jerk_rsd < 3.5 #define stillness  
+    jerk_rm = np.array(pd.Series(jerk).rolling(100).mean())
+    jerk_rsd = np.array(pd.Series(jerk).rolling(100).std())
+    ix_stillnes = np.logical_and(jerk_rsd < 3.5, np.logical_and(acc_rsd < 0.2, np.abs(jerk_rm) < 2.5)) #define stillness
+    ix_stillnes[ix_stillnes] = 1
+    ix_stillnes[np.logical_not(ix_stillnes)] = 0
     ix_stillnes2 = np.diff(ix_stillnes)
     
 #if ix_stillnes(1) == 1
@@ -64,7 +66,8 @@ def find_stillness(
 #deleteSpikes = find(sStartPt(2:end)-sEndPt(1:end-1) <= 2*fs);
 #sStartPt(deleteSpikes+1) = [];
 #sEndPt(deleteSpikes) = [];
-    delete_spikes = np.argwhere(s_start_pt[1:-1] - s_end_pt[0:-2] <= 2*fs) 
+    print(f"delete_spikes - \ns_start_pt={s_start_pt}, \ns_end_pt={s_end_pt}")
+    delete_spikes = np.argwhere((s_start_pt[1:-1] - s_end_pt[0:-2]) <= 2*fs)
     s_start_pt[delete_spikes] = []
     s_end_pt[delete_spikes] = []
 
