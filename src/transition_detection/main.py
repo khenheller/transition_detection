@@ -1,3 +1,33 @@
+import scipy
+from scipy import io
+import os
+import mat73
+from os.path import dirname, join as pjoin
+import scipy.io as sio
+import pandas as pd
+import numpy as np
+import scipy.signal
+from scipy.signal import butter, lfilter, freqz
+import matplotlib.pyplot as plt
+
+from src.transition_detection.files_lists import files_lists
+from src.transition_detection.load_data import load_data
+
+listingAcc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
+listingGait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
+listingLying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lying')
+
+
+(listingAcc,listingGait,listingLying,listingLumbar,listingThigh)= files_lists(listingAcc_path,listingGait_path,listingLying_path)
+
+
+
+#for ff in range(len(listingLumbar)):
+for ff in range(0,1):
+
+    (lumbar_ACC, walking_Vec_Lumbar, lying_Vec_lumbar, ACC_thigh,walking_Vec_thigh,laying_Vec_thigh)= load_data(ff,listingAcc_path,listingGait_path, listingLying_path,listingAcc,listingGait,listingLying,listingThigh,listingLumbar)
+
+
 
 # for loop for every file in the main script
 #load the data #1-18 #Eden
