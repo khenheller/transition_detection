@@ -5,7 +5,7 @@ from typing import Tuple
 import pywt
 
 
-def find_pt_with_theta(pitch: np.ndarray, fs: int) -> Tuple(np.ndarray, np.ndarray):
+def find_pt_with_theta(pitch: np.ndarray, fs: int): # -> Tuple(np.ndarray, np.ndarray):
     """Finds suspected postural transitions.
 
     Args:
