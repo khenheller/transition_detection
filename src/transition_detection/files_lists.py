@@ -8,17 +8,17 @@ import numpy as np
 
 def files_lists(listingAcc_path:str,listingGait_path:str,listingLying_path:str):
     "This function create lists of different measurement situation"
-    listingAcc = os.listdir(listingAcc_path)  # list of all the files under ACC folder
-    listingGait = os.listdir(listingGait_path)  # list of all the files under Gait folder
-    listingLying = os.listdir(listingLying_path)  # list of all the files under Lying folder
+    listing_acc = os.listdir(listingAcc_path)  # list of all the files under ACC folder
+    listing_gait = os.listdir(listingGait_path)  # list of all the files under Gait folder
+    listing_lying = os.listdir(listingLying_path)  # list of all the files under Lying folder
 
-    listingLumbar = []
-    listingThigh = []
-    for l in listingAcc:  # separate the ACC list to listingLumbar and listingThigh
+    listing_lumbar = []
+    listing_thigh = []
+    for l in listing_acc:  # separate the ACC list to listingLumbar and listingThigh
         if 'lumbar' in l:
-            listingLumbar.append(l)
+            listing_lumbar.append(l)
         else:
-            listingThigh.append(l)
+            listing_thigh.append(l)
 
-    return listingAcc,listingGait,listingLying,listingLumbar,listingThigh
+    return listing_acc,listing_gait,listing_lying,listing_lumbar,listing_thigh
 

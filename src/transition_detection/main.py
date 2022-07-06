@@ -7,26 +7,24 @@ import scipy.io as sio
 import pandas as pd
 import numpy as np
 import scipy.signal
-from scipy.signal import butter, lfilter, freqz
 import matplotlib.pyplot as plt
 
 from src.transition_detection.files_lists import files_lists
 from src.transition_detection.load_data import load_data
-
-listingAcc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
-listingGait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
-listingLying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lying')
+from src.transition_detection.preprocessing import preprocessing
 
 
-(listingAcc,listingGait,listingLying,listingLumbar,listingThigh)= files_lists(listingAcc_path,listingGait_path,listingLying_path)
+listing_acc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
+listing_gait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
+listing_lying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lying')
 
 
+(listing_acc,listing_gait,listing_lying,listing_lumbar,listing_thigh)= files_lists(listing_acc_path,listing_gait_path,listing_lying_path)
 
-#for ff in range(len(listingLumbar)):
-for ff in range(0,1):
+for ff in range(len(listing_lumbar)):
+    (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh)= load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
 
-    (lumbar_ACC, walking_Vec_Lumbar, lying_Vec_lumbar, ACC_thigh,walking_Vec_thigh,laying_Vec_thigh)= load_data(ff,listingAcc_path,listingGait_path, listingLying_path,listingAcc,listingGait,listingLying,listingThigh,listingLumbar)
-
+    ({'acc': acc, 'v': v, 'ml': ml, 'ap': ap}, {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},{'magnitude': a_mag, 'fs': fs})=preprocessing(listing_lumbar)
 
 
 # for loop for every file in the main script
