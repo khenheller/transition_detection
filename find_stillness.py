@@ -82,7 +82,7 @@ def find_stillness(
 #end
 #ix_Lying = diff(Lying_Vec_Lumbar);
     for kk in range(len(s_start_pt)):
-        ix_stillnes[range(s_start_pt[kk],s_end_pt[kk]+1)] = 1
+        ix_stillnes[range(s_start_pt[kk],s_end_pt[kk+1])] = 1
     ix_lying = np.diff(lying_vec_lumbar)    
 
 
