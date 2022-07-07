@@ -2,6 +2,7 @@ import numpy as np
 from scipy.integrate import cumtrapz
 from scipy.signal import find_peaks
 from typing import Tuple
+from src.transition_detection.test_types import test_types
 import pywt
 
 
@@ -18,7 +19,9 @@ def find_pt_with_theta(pitch: np.ndarray, fs: int): # -> Tuple(np.ndarray, np.nd
     Returns:
         locs (np.ndarray): peak indices
         sin_theta_pks (np.ndarray): peak heights
-    """   
+    """
+    test_types(var_list=[pitch, fs], var_name_list=['pitch', 'fs'], type_list=[np.ndarray, int])
+    
     if np.any(np.isnan(pitch)):
         raise ValueError("Pitch contains nans")
 

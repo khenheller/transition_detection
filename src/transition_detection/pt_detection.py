@@ -7,7 +7,7 @@ from pyquaternion import Quaternion
 from scipy.integrate import cumtrapz
 
 
-def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
+def pt_detection(locs, fs, acc, gyro, pitch, sin_theta_pks):
     """Detects transitions from sitting to standing and the opposite.
 
     Args:
@@ -41,7 +41,7 @@ def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
             dwt2 = pywt.upcoef(part="a", coeffs=coeffs[:, 0], wavelet="coif5", level=9)
 
         except Exception as err:
-            print(f"Failed PT detection attempt due to: {err}")
+            raise Exception(f"Epoch too big: {err}")
 
         else:
             pitch_denoised = (dwt1 - dwt2) * np.pi / 180
