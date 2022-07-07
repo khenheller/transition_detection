@@ -31,6 +31,7 @@ def transition_detection(listing_acc_path: str, listing_gait_path: str, listing_
         s2stand_precision: detection precision for sit-to-stand transitions
     """
 
+    fs=100 #sample rate
 
     #Create files lists
     (listing_acc, listing_gait, listing_lying, listing_lumbar, listing_thigh)= files_lists(listing_acc_path, listing_gait_path, listing_lying_path)
@@ -87,7 +88,6 @@ def transition_detection(listing_acc_path: str, listing_gait_path: str, listing_
             performance_detection(pt, s2sit_index, s2stand_index, ix_stillness, lying_vec_lumbar, sitting_vec, fs)
 
     return pt, s2sit_sensitivity, s2sit_precision, s2stand_sensitivity, s2stand_precision
-
 
 
 
