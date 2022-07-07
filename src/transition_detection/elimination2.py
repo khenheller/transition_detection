@@ -21,7 +21,7 @@ def elimination2(
         np.ndarray: postural changes.
     """
     test_types([pt, fs], ["pt", "fs"], [np.ndarray,int])
-    is_empty_input([pt, fs], ["pt", "fs"])
+    is_empty([pt, fs], ["pt", "fs"])
 
 
     delete_pt = []
