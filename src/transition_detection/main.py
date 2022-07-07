@@ -1,3 +1,41 @@
+from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
+from src.transition_detection.files_lists import files_lists
+from src.transition_detection.find_pt_with_theta import find_pt_with_theta
+from src.transition_detection.find_stillness import find_stillness
+from src.transition_detection.load_data import load_data
+from src.transition_detection.preprocessing import preprocessing
+
+listing_acc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
+listing_gait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
+listing_lying_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Lying')
+
+
+(listing_acc,listing_gait,listing_lying,listing_lumbar,listing_thigh)= files_lists(listing_acc_path,listing_gait_path,listing_lying_path)
+
+for ff in range(len(listing_lumbar)):
+    (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh) = load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
+
+    (d1,d2,d3)=preprocessing(lumbar_acc)
+    print("returned from preprocessing")
+    print("d1", d1)
+    print("d2", d2)
+    print("d3", d3)
+
+    # {'acc': acc, 'v': v, 'ml': ml, 'ap': ap},
+    # {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
+    # {'magnitude': a_mag, 'fs': fs}
+
+    (s_start_pt, s_end_pt, ix_stillnes)=find_stillness(d3['magnitude'], d3['fs'], lying_vec_lumbar)
+
+
+    (locs, sin_theta_pks)=find_pt_with_theta(d2['pitch'], d3['fs'])
+
+    clean_pt(locs,ix_stillnes, d3['fs'],s_start_pt,s_end_pt)
+
+
+
+
+
 
 # for loop for every file in the main script
 #load the data #1-18 #Eden
@@ -12,9 +50,8 @@
 #Clean PT with no stillness before/after #169-186
 
 
-#  fuse = imufilter #234 maybe main
-
 #Postral Transition detection #234-338
+    #  fuse = imufilter #234 maybe main
 
 #    PT = sortrows([Sit2Stand;Stand2Sit],1); #main 352
 
@@ -26,7 +63,7 @@
 
 #Elimination2 #428-437
 
-#find transitions from sit to stand #439-450
+#find transitions from sit to stand #439-450 maayan
 
 # delete still periods #452-488
 
