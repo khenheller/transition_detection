@@ -1,21 +1,9 @@
-import scipy
-from scipy import io
-import os
-import mat73
-from os.path import dirname, join as pjoin
-import scipy.io as sio
-import pandas as pd
-import numpy as np
-import scipy.signal
-import matplotlib.pyplot as plt
-
+from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
 from src.transition_detection.files_lists import files_lists
+from src.transition_detection.find_pt_with_theta import find_pt_with_theta
+from src.transition_detection.find_stillness import find_stillness
 from src.transition_detection.load_data import load_data
 from src.transition_detection.preprocessing import preprocessing
-from src.transition_detection.find_stillness import find_stillness
-from src.transition_detection.find_pt_with_theta import find_pt_with_theta
-from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
-
 
 listing_acc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
 listing_gait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
@@ -57,7 +45,7 @@ for ff in range(len(listing_lumbar)):
 
 #  fuse = imufilter #234 maybe main
 
-#Postral Transition detection #234-338
+#Postral Transition detection #234-338 chen
 
 #    PT = sortrows([Sit2Stand;Stand2Sit],1); #main 352
 
@@ -69,7 +57,7 @@ for ff in range(len(listing_lumbar)):
 
 #Elimination2 #428-437
 
-#find transitions from sit to stand #439-450
+#find transitions from sit to stand #439-450 maayan
 
 # delete still periods #452-488
 
