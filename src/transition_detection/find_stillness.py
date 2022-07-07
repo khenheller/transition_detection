@@ -16,7 +16,7 @@ def find_stillness(
     ----------
     a_mag: the magnitude of acceleration
     fs: sample rate
-    lying_vec_lumbar: binar array. 1 = lying, 0 = not lying
+    lying_vec_lumbar: binary array. 1 = lying, 0 = not lying
 
     Returns
     -------
