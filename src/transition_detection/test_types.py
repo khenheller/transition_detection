@@ -9,6 +9,6 @@ def test_types(var_list: list, var_name_list: list, type_list: list):
     Raises:
         TypeError: One of the vars has the wrong type
     """
-    for var, typ in zip(var_list, type_list):
+    for var, var_name, typ in zip(var_list, var_name_list, type_list):
         if type(var) != typ:
-            raise TypeError(f"Type of {var_name_list} is {type(var)} instead of {typ}")
+            raise TypeError(f"Type of {var_name} is {type(var)} instead of {typ}")
