@@ -10,7 +10,8 @@ def elimination1(
     ix_stillnes: np.ndarray,
     walking_vec_lumber: np.ndarray
     ):
-    """find stillness period.
+    """
+    find stillness period.
     Parameters
     ----------
     pt: np.ndarray
@@ -37,7 +38,7 @@ def elimination1(
         pt[delete_pt,:] = []
         delete_pt = []
         ind2 = [m.start() for m in re.finditer([2,2], pt[:,1].T)]
-
+    return ind2
     # ind2 = strfind(PT(:,2)',[2 2]);w
     # while ind2
     #     for jj = 1:length(ind2)
