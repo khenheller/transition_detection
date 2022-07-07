@@ -1,2 +1,7 @@
-site_name: My Docs
+site_name: Transition Detection
 theme: readthedocs
+site_url: https://transition_detection.com/
+
+nav:
+    - Home: index.md
+    - About: about.md
