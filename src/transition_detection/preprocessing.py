@@ -33,8 +33,13 @@ def preprocessing(listingLumbar: pd.DataFrame):
     a_mag = np.sqrt(v ** 2 + ap ** 2 + ml ** 2)  # Magnitude
     # g_mag = np.sqrt(yaw**2 + pitch**2 + roll ** 2);
 
-    return {'acc': acc, 'v': v, 'ml': ml, 'ap': ap}, {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
-    {'magnitude': a_mag, 'fs': fs}
+    print("returning from preprocessing")
+    return (
+        {'acc': acc, 'v': v, 'ml': ml, 'ap': ap},
+        {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
+        {'magnitude': a_mag, 'fs': fs}
+    )
+
 
 
 
