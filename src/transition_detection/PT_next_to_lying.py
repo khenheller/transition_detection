@@ -3,6 +3,7 @@ import re
 from test_types import *
 from is_empty import *
 
+
 def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_stillness: np.ndarray,
                             walking_vec_lumbar: np.ndarray, fs: int = 100):
     """
