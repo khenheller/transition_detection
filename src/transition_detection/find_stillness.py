@@ -2,24 +2,29 @@
 import pandas as pd
 import numpy as np
 import bottleneck as bn
+from is_empty import *
+from test_types import *
+
 
 def find_stillness(
     a_mag: np.ndarray,
     fs: int,
-    lying_vec_lumbar: np.ndarray)-> None:
+    lying_vec_lumbar: np.ndarray):
     
     """find stillness period.
     Parameters
     ----------
     a_mag: the magnitude of acceleration
     fs: sample rate
-    lying_vec_lumbar:
+    lying_vec_lumbar: binary array. 1 = lying, 0 = not lying
 
     Returns
     -------
     s_start_pt: 
     s_end_pt:
     """
+    test_types([a_mag,fs,lying_vec_lumbar], ["a_mag", "fs", "lying_vec_lumbar"], [np.ndarray, int, np.ndarray])
+    is_empty_input([a_mag,fs,lying_vec_lumbar], ["a_mag", "fs", "lying_vec_lumbar"])
 
 #accRSD = movstd(Amag,100);
     acc_rsd = bn.move_std(a_mag, window=100) #Moving window standard deviation along the first axis
