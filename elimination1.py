@@ -24,13 +24,13 @@ def elimination1(
 
     ind2 = [m.start() for m in re.finditer([2,2], pt[:,1].T)]
     while ind2:
-        for jj in range(1,len(ind2)):
-            val1 = ix_stillnes[range(pt[ind2[jj],0], pt(ind2[jj]+2,0))]
+        for jj in range(len(ind2)):
+            val1 = ix_stillnes[range(pt[ind2[jj],0], pt(ind2[jj]+1,0))]
             stillness = val1.sum(axis = 0) / len(val1)
-            val2= walking_vec_lumber[range(pt[ind2[jj],0],pt(ind2[jj]+2,0))] 
-            walking  = val2.sum(axis = 0) / len(val2)
-            if stillness < 0.85 or walking > 0.05:
-                delete_pt = [[delete_pt], [ ind2[jj]]]
+            val2 = walking_vec_lumber[range(pt[ind2[jj],0],pt(ind2[jj]+1,0))] 
+            walking = val2.sum(axis = 0) / len(val2)
+            if np.logical(stillness < 0.85, walking > 0.05):
+                delete_pt = [[delete_pt], [ind2[jj]]]
             else:
                 delete_pt = [[delete_pt], ind2[jj]+1]
             delete_pt = np.unique(delete_pt)
