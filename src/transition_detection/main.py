@@ -4,6 +4,16 @@ from src.transition_detection.find_pt_with_theta import find_pt_with_theta
 from src.transition_detection.find_stillness import find_stillness
 from src.transition_detection.load_data import load_data
 from src.transition_detection.preprocessing import preprocessing
+from src.transition_detection.find_stillness import find_stillness
+from src.transition_detection.find_pt_with_theta import find_pt_with_theta
+from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
+from src.transition_detection.pt_detection import from pt_detection
+from src.transition_detection.delete_PT_next_to_lying import delete_PT_next_to_lying
+from src.transition_detection.elimination1 import elimination1
+from src.transition_detection.sitting_segements_fitting_standards import sitting_segements_fitting_standards
+from src.transition_detection.find_sit_to_stand import find_sit_to_stand
+from src.transition_detection.performance_detection import performance_detection
+
 
 listing_acc_path= (r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Mat files\acc')
 listing_gait_path=(r'C:\Users\eden\Desktop\Axivity Lumbar vs thigh\Posture\Gait')
@@ -31,6 +41,30 @@ for ff in range(len(listing_lumbar)):
     (locs, sin_theta_pks)=find_pt_with_theta(d2['pitch'], d3['fs'])
 
     clean_pt(locs,ix_stillnes, d3['fs'],s_start_pt,s_end_pt)
+
+
+    (sit_2_stand, stand_2_sit)=pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw)
+
+    pt=delete_PT_next_to_lying(pt,lying_vec_lumbar, ix_stillnes,walking_vec_lumbar,fs=100)
+
+    pt=elimination1(pt,ix_stillnes,walking_vec_lumber)
+
+
+    pt=sitting_segements_fitting_standards(walking_vec_lumbar, pt, ix_stillnes,fs)
+
+    #Elimination2 #428-437
+    (s2sit_index, s2stand_index)=find_sit_to_stand(sitting_vec)
+
+    # delete still periods #452-488
+
+    (s2sit_sensitivity, s2sit_precision, s2stand_sensitivity, s2stand_precision, sitting_acc)=performance_detection(pt, s2sit_index, s2stand_index,ix_stillness, lying_vec_lumbar,sitting_vec, fs)
+
+
+
+
+
+
+
 
 
 
