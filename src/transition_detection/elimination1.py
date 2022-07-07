@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import bottleneck as bn
 import re
+from is_empty import *
+from test_types import *
 
 def elimination1(
     pt: np.ndarray,
@@ -15,13 +17,15 @@ def elimination1(
     Parameters
     ----------
     pt: np.ndarray
-    ix_stillnes:
-    walking_vec_lumber:
+    ix_stillnes: np.ndarray
+    walking_vec_lumber: np.ndarray
     
     Returns
     -------
-
+    ind2
     """    
+    test_types([pt, ix_stillnes,walking_vec_lumber], ["pt", "ix_stillnes", "walking_vec_lumber"], [np.ndarray,np.ndarray, np.ndarray])
+    is_empty_input([pt, ix_stillnes,walking_vec_lumber], ["pt", "ix_stillnes", "walking_vec_lumber"])
 
     ind2 = [m.start() for m in re.finditer([2,2], pt[:,1].T)]
     while ind2:
