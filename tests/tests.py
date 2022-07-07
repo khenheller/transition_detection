@@ -30,13 +30,13 @@ DELETE_PT_NEXT_TO_LYING_VALUEERROR_INPUTS = \
 FIND_SIT2STAND_TYPEERROR_INPUTS = ['s', 0, None, [], {}, True, '!', 9, pd.DataFrame()]
 
 PERFORMANCE_DETECTION_TYPEERROR_INPUTS = [
-    (1, 2, 3, 4, 5, 6),
-    ('s', 'x', True, 6, np.ndarray((0, 0)), 'ddd'),
-    ('s', 'x', True, 2, 'g', np.ndarray(range(1, 4))),
-    (np.ndarray(range(1, 4)), 2, 3, 5, 6, 9),
-    (False, np.ndarray(range(1, 4)), 'g', 3, pd.DataFrame([1, 2, 3]), 6),
-    (np.ndarray(range(1, 4)), 'r', 'g', 3, pd.DataFrame([1, 2, 3]), 8),
-    (False, True, 3, np.ndarray(range(1, 4)), 'g', "66f")]
+    (1, 2, 3, 4, 5, 6, 7),
+    ('s', 'x', True, 6, np.ndarray((0, 0)), 7, 'ddd'),
+    ('s', 'x', True, 2, 'g', np.ndarray(range(1, 4)), 7),
+    (np.ndarray(range(1, 4)), 2, 3, 5, 6, 9, "f"),
+    (False, np.ndarray(range(1, 4)), 'g', 3, pd.DataFrame([1, 2, 3]), 6, True),
+    (np.ndarray(range(1, 4)), 'r', 'g', np.ndarray(range(1, 3)), 3, pd.DataFrame([1, 2, 3]), 8),
+    (False, True, 3, np.ndarray(range(1, 4)), 'g', np.ndarray(range(1, 3)), "66f")]
 
 PERFORMANCE_DETECTION_VALUEERROR_INPUTS = \
     [(EMPTY_NDARRAY, NON_EMPTY_NDARRAY, NON_EMPTY_NDARRAY, NON_EMPTY_NDARRAY, NON_EMPTY_NDARRAY, 2),
