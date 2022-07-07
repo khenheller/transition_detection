@@ -56,7 +56,7 @@ def transition_detection(listing_acc_path: str, listing_gait_path: str, listing_
         # Clean PT with no stillness before/after (169-186)
         locs = clean_pt(locs, ix_stillness, fs, s_start_pt, s_end_pt)
 
-        # Postral Transition detection (234-338)
+        # Postural Transition detection (234-338)
         (sit_2_stand, stand_2_sit) = pt_detection(locs, fs, d1['acc'], d2['gyro'], d2['pitch'], sin_theta_pks)
 
         pt = np.concatenate((sit_2_stand, stand_2_sit), axis=0)  # array of all posture transition
