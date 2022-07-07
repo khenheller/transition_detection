@@ -4,8 +4,8 @@ from src.transition_detection.preprocessing import preprocessing
 from src.transition_detection.find_stillness import find_stillness
 from src.transition_detection.find_pt_with_theta import find_pt_with_theta
 from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
-from src.transition_detection.pt_detection import from pt_detection
-from src.transition_detection.delete_PT_next_to_lying import delete_PT_next_to_lying
+from src.transition_detection.pt_detection import pt_detection
+from src.transition_detection.PT_next_to_lying import  delete_PT_next_to_lying
 from src.transition_detection.elimination1 import elimination1
 from src.transition_detection.sitting_segements_fitting_standards import sitting_segements_fitting_standards
 from src.transition_detection.find_sit_to_stand import find_sit_to_stand
@@ -32,6 +32,7 @@ def transition_detection(listing_acc_path:str,listing_gait_path:str ,listing_lyi
         s2stand_precision: detection precision for sit-to-stand transitions
     """
 
+    fs=100 #sample rate
 
     #Create files lists
     (listing_acc, listing_gait, listing_lying, listing_lumbar, listing_thigh)= files_lists(listing_acc_path, listing_gait_path, listing_lying_path)
@@ -82,7 +83,6 @@ def transition_detection(listing_acc_path:str,listing_gait_path:str ,listing_lyi
 
 
     return pt,s2sit_sensitivity, s2sit_precision, s2stand_sensitivity, s2stand_precision
-
 
 
 
