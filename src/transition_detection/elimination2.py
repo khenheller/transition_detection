@@ -2,41 +2,33 @@
 import pandas as pd
 import numpy as np
 import re
+from os.path import dirname, join as pjoin
+import scipy.io
+
 
 def elimination2(
-    pt:None,
+    pt: np.ndarray,
     fs: int,
-    )-> None:
-    
-    """
-    elimination2
-    Parameters
-    ----------
-    pt:
-    fs: sample rate
+):
+    """_summary_
 
+    Args:
+        pt (np.ndarray): posture transition array.
+        fs (int): Sample rate.
 
-    Returns
-    -------
-
+    Returns:
+        np.ndarray: postural changes.
     """
     delete_pt = []
-    ind1 = [m.start() for m in re.finditer([1,2], pt[:,1].T)]
+    ind1 = []
+    for i in range(len(pt) - 1):
+        x = [pt[i, 1], pt[i + 1, 1]]
+        if x == [1, 2]:
+            ind1.append(i)
+
     for jj in range(len(ind1)):
-        segment_length = len(range(pt[ind1[jj],0], pt[ind1[jj]+1,0]))
-        if segment_length < 10*fs:
-            delete_pt = [[delete_pt], [ind1[jj]], [ind1[jj]+1]]
-    pt[delete_pt,:] = []
-
+        segment_length = len(np.arange(pt[ind1[jj], 0], pt[ind1[jj] + 1, 0], 1))
+        if segment_length < 10 * fs:
+            delete_pt = [[delete_pt], [ind1[jj]], [ind1[jj] + 1]]
+    pt[delete_pt, :] = [] * len(delete_pt)
     return pt
-
-   
-# deletePT = [];
-# ind1 = strfind(PT(:,2)',[1 2]);
-# for jj = 1:length(ind1)
-#     segmentLength = length(PT(ind1(jj),1):PT(ind1(jj)+1,1));
-#     if segmentLength < 10*fs
-#         deletePT = [deletePT ; ind1(jj); ind1(jj)+1];
-#     end
-# end
-# PT(deletePT,:) = [];
