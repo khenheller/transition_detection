@@ -17,6 +17,7 @@ def clean_pt(
 
     Returns
     -------
+    locs:clean array of the location of the transiotions
     """
     delete_locs = []
     for ii in range(len(locs)):
@@ -34,23 +35,9 @@ def clean_pt(
         if not np.any(c):
             delete_locs = [[delete_locs],[ii]]
             continue
-    locs[delete_locs] = []            
+    locs[delete_locs] = []
+
+    return locs
             
-#deleteLocs = [];
-#    for ii = 1:length(locs)
-#        try
-#            stillBefore = sum(ix_stillnes(locs(ii)-15*fs:locs(ii)-1))/(15*fs);
-#            stillAfter = sum(ix_stillnes(locs(ii)+1:locs(ii)+15*fs))/(15*fs);
-#            if stillBefore < 0.5 & stillAfter < 0.5p
-#                deleteLocs = [deleteLocs;ii];
-#                continue;
-#            end
-#            c = intersect((locs(ii)-15*fs:locs(ii)+15*fs),[sStartPt;sEndPt]);
-#            if isempty(c)
-#                deleteLocs = [deleteLocs;ii];
-#                continue;
-#            end
-#        end
-#    end
-#    locs(deleteLocs) = [];    
+
     
