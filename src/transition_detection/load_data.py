@@ -10,7 +10,11 @@ import numpy as np
 
 
 def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_path:str,listing_acc:list, listing_gait:list,listing_lying:list,listing_thigh:list,listing_lumbar:list):
+    """
+    The function load the  data via, and divides the data to lumbar gait, acc, lying anf thigh gait. acc and lying
 
+    :return: nd arrays with the different data sets
+    """
     id_lumbar=listing_lumbar[ff][0:7] #the ID of lumbar for specific subject
     subject_num= listing_lumbar[ff][-7:-4]
     full_path= os.path.join(listing_acc_path,listing_lumbar[ff]) #full path of lumbar ACC file of specific subject
