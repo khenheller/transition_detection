@@ -1,5 +1,5 @@
 import numpy as np
-
+from src.transition_detection.test_types import *
 
 def find_sit_to_stand(sitting_vec: np.ndarray):
     """
@@ -10,6 +10,8 @@ def find_sit_to_stand(sitting_vec: np.ndarray):
     s2sit_index: indices of transitions from stand to sit
     s2stand_index: indices of transitions from sit to stand
     """
+    test_types([sitting_vec], ["sitting_vec"], [np.ndarray])
+
     s2sit_index = np.argwhere(diff(sitting_vec) == 1)  # find sitting according to thigh signal
     s2stand_index = np.argwhere(diff(sitting_vec) == -1)  # find standing according to thigh signal
     

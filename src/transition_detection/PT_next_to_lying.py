@@ -1,7 +1,8 @@
 import numpy as np
 import re
+from src.transition_detection.test_types import *
 
-def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_stillnes: np.ndarray,
+def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_stillness: np.ndarray,
                             walking_vec_lumbar: np.ndarray, fs: int = 100):
     """
     Delete PT next to lying segments
@@ -14,9 +15,13 @@ def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_sti
     :return:
     pt: posture transition array after deletion of PT's next to lying segments
     """
+    test_types([pt, lying_vec_lumbar, ix_stillness, walking_vec_lumbar, fs],
+               ["pt", "lying_vec_lumbar", "ix_stillness", "walking_vec_lumbar", "fs"],
+               [np.ndarray, np.ndarray, np.ndarray, np.ndarray, int])
+
     delete_pt = []  #indices of PTs to delete- empty
     for jj in np.ndarray(range(1, len(pt[:, 0]))):
-        if sum(lying_vec_lumbar[pt[jj, 0] - 15 * fs : pt[jj,0] + 15*fs]) > 0:
+        if sum(lying_vec_lumbar[pt[jj, 0] - 15 * fs : pt[jj, 0] + 15*fs]) > 0:
             delete_pt.append(jj)  # add PT to deletion vector
 
     pt[delete_pt, :] = []  # delete PTs
@@ -25,7 +30,7 @@ def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_sti
     delete_pt = []
     while ind1:
         for jj in np.ndarray(range(1, len(ind1))):
-            stillness = sum(ix_stillnes[pt[ind1[jj], 0]: pt[ind1[jj]+1, 0]]) / len(
+            stillness = sum(ix_stillness[pt[ind1[jj], 0]: pt[ind1[jj]+1, 0]]) / len(
                 ix_stillnes[pt[ind1[jj], 0]:pt[ind1[jj]+1, 0]])
             walking = sum(walking_vec_lumbar[pt[ind1[jj], 0]: pt[ind1[jj]+1, 0]]) / len(
                 walking_vec_lumbar[pt[ind1[jj], 0]:pt[ind1[jj]+1, 0]])
