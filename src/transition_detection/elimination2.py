@@ -4,7 +4,8 @@ import numpy as np
 import re
 from os.path import dirname, join as pjoin
 import scipy.io
-
+from is_empty import *
+from test_types import *
 
 def elimination2(
     pt: np.ndarray,
@@ -19,6 +20,10 @@ def elimination2(
     Returns:
         np.ndarray: postural changes.
     """
+    test_types([pt, fs], ["pt", "fs"], [np.ndarray,int])
+    is_empty_input([pt, fs], ["pt", "fs"])
+
+
     delete_pt = []
     ind1 = []
     for i in range(len(pt) - 1):
