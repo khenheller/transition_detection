@@ -1,6 +1,7 @@
 import numpy as np
 import re
-from src.transition_detection.test_types import *
+from test_types import *
+from is_empty import *
 
 def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_stillness: np.ndarray,
                             walking_vec_lumbar: np.ndarray, fs: int = 100):
@@ -18,6 +19,9 @@ def delete_PT_next_to_lying(pt: np.ndarray, lying_vec_lumbar: np.ndarray, ix_sti
     test_types([pt, lying_vec_lumbar, ix_stillness, walking_vec_lumbar, fs],
                ["pt", "lying_vec_lumbar", "ix_stillness", "walking_vec_lumbar", "fs"],
                [np.ndarray, np.ndarray, np.ndarray, np.ndarray, int])
+    is_empty([pt, lying_vec_lumbar, ix_stillness, walking_vec_lumbar, fs],
+               ["pt", "lying_vec_lumbar", "ix_stillness", "walking_vec_lumbar", "fs"]
+    )
 
     delete_pt = []  #indices of PTs to delete- empty
     for jj in np.ndarray(range(1, len(pt[:, 0]))):

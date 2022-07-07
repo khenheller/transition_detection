@@ -1,5 +1,6 @@
 import numpy as np
-from src.transition_detection.test_types import *
+from test_types import *
+from is_empty import *
 
 # import scipy.io
 # pt = scipy.io.loadmat('pt.mat')
@@ -35,6 +36,8 @@ def performance_detection(pt: np.ndarray, s2sit_index: np.ndarray, s2stand_index
     test_types([pt, s2sit_index, s2stand_index, ix_stillness, lying_vec_lumbar, sitting_vec, fs],
                ["pt", "s2sit_index", "s2stand_index", "ix_stillness", "lying_vec_lumbar", "sitting_vec", "fs"],
                [np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, int])
+    is_empty([pt, s2sit_index, s2stand_index, ix_stillness, lying_vec_lumbar, sitting_vec, fs],
+               ["pt", "s2sit_index", "s2stand_index", "ix_stillness", "lying_vec_lumbar", "sitting_vec", "fs"])
 
     pt_s2sit = pt[pt[:, 1] == 2, 0]  # posture transitions from stand to sit
     pt_s2stand = pt[pt[:, 1] == 1, 0]  # posture transitions from sit to stand
