@@ -3,7 +3,8 @@ import numpy as np
 import scipy.signal
 from scipy.signal import butter, lfilter, freqz
 import matplotlib.pyplot as plt
-from src.transition_detection.test_types import *
+from test_types import *
+from is_empty import *
 
 def preprocessing(lumbar_acc: np.ndarray):
     """
@@ -13,6 +14,7 @@ def preprocessing(lumbar_acc: np.ndarray):
     :return:
     """
     test_types([lumbar_acc], ["lumbar_acc"], [np.ndarray])
+    is_empty([lumbar_acc], ["lumbar_acc"])
 
     fs = 100  # SampleRate
     n = 4  # filter order
