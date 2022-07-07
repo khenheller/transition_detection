@@ -23,7 +23,7 @@ def elimination2(
     delete_pt = []
     ind1 = [m.start() for m in re.finditer([1,2], pt[:,1].T)]
     for jj in range(len(ind1)):
-        segment_length = len(range(pt[ind1[jj],1], pt[ind1[jj]+1,1]))
+        segment_length = len(range(pt[ind1[jj],0], pt[ind1[jj]+1,0]))
         if segment_length < 10*fs:
             delete_pt = [[delete_pt], [ind1[jj]], [ind1[jj]+1]]
     pt[delete_pt,:] = []
