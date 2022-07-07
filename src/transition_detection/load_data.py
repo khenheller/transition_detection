@@ -8,12 +8,26 @@ import pandas as pd
 import numpy as np
 
 
-
-def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_path:str,listing_acc:list, listing_gait:list,listing_lying:list,listing_thigh:list,listing_lumbar:list):
+def load_data(ff:int, listing_acc_path:str, listing_gait_path:str, listing_lying_path:str, listing_acc:list, listing_gait:list, listing_lying:list, listing_thigh:list, listing_lumbar:list):
     """
-    The function load the  data via, and divides the data to lumbar gait, acc, lying anf thigh gait. acc and lying
+    The function load the data and divides the data to lumbar gait, acc, lying and thigh acc, gait and lying.
 
-    :return: nd arrays with the different data sets
+        Parameters
+        ----------
+        listing_acc: list of all the acc mat files
+        listing_gait: list of all the gait mat files
+        listing_lying: list of all the lying mat files
+        listing_lumbar: acc lumbar mat files
+        listing_thigh: acc thigh mat files
+
+    return: nd arrays with the different data sets:
+        lumbar_acc
+        walking_vec_lumbar
+        lying_vec_lumbar
+        thigh_acc
+        walking_vec_thigh
+        laying_vec_thigh
+
     """
     id_lumbar=listing_lumbar[ff][0:7] #the ID of lumbar for specific subject
     subject_num= listing_lumbar[ff][-7:-4]
@@ -40,7 +54,6 @@ def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_p
         raise ValueError(f'The lumbar lying file doesnt exist for {subject_num}')
 
 
-
     ix = [l for l in listing_thigh if subject_num in l]
     if len(ix)>=1: #if this data exist for specific subject
         full_path = os.path.join(listing_acc_path, ix[0])
@@ -48,6 +61,7 @@ def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_p
         thigh_acc=thigh_acc['New_Data']
     else:
         raise ValueError(f'The thigh acc file doesnt exist for {subject_num}')
+
 
     ix = [l for l in listing_gait if (subject_num in l) & ('thigh' in l)]
     if len(ix)>=1: #if this data exist for specific subject
@@ -57,6 +71,7 @@ def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_p
     else:
         raise ValueError(f'The thigh gait file doesnt exist for {subject_num}')
 
+
     ix = [l for l in listing_lying if (subject_num in l) & ('thigh' in l)]
     if len(ix)>=1:
         full_path = os.path.join(listing_lying_path, ix[0])
@@ -65,8 +80,6 @@ def load_data(ff:int,listing_acc_path:str,listing_gait_path:str, listing_lying_p
     else:
         raise ValueError(f'The thigh lying file doesnt exist for {subject_num}')
 
-
-    print("lumbar_acc=", lumbar_acc)
 
     return lumbar_acc, walking_vec_lumbar, lying_vec_lumbar, thigh_acc ,walking_vec_thigh, laying_vec_thigh
 
