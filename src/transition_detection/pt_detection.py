@@ -5,9 +5,11 @@ import pandas as pd
 import pywt
 from pyquaternion import Quaternion
 from scipy.integrate import cumtrapz
+from src.transition_detection.test_types import test_types
+from src.transition_detection.is_empty import is_empty
 
 
-def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
+def pt_detection(locs, fs, acc, gyro, pitch, sin_theta_pks):
     """Detects transitions from sitting to standing and the opposite.
 
     Args:
@@ -22,6 +24,16 @@ def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
         sit_2_stand (np.ndarray): All transitions from sit to stand
         stand_2_sit (np.ndarray): All transitions from stand to sit
     """
+
+    test_types(
+        var_list=[locs, fs, acc, gyro, pitch, sin_theta_pks],
+        var_name_list=["locs", "fs", "acc", "gyro", "pitch", "sin_theta_pks"],
+        type_list=[np.ndarray, int, np.ndarray, np.ndarray, np.ndarray, np.ndarray],
+    )
+    is_empty(
+        var_list=[locs, fs, acc, gyro, pitch, sin_theta_pks],
+        var_name_list=["locs", "fs", "acc", "gyro", "pitch", "sin_theta_pks"],
+    )
 
     fuse = Madgwick()
     sit_2_stand = []
@@ -41,7 +53,7 @@ def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
             dwt2 = pywt.upcoef(part="a", coeffs=coeffs[:, 0], wavelet="coif5", level=9)
 
         except Exception as err:
-            print(f"Failed PT detection attempt due to: {err}")
+            raise Exception(f"Epoch too big: {err}")
 
         else:
             pitch_denoised = (dwt1 - dwt2) * np.pi / 180
@@ -94,7 +106,9 @@ def pt_detection(locs, fs, acc, gyro, pitch, fuse, sin_theta_pks, draw):
             # Calculates the physical location in space and its HeEtek.
             # Fusion of accl & angular velocity  => to get orientation (Kalman filter method)
             q0 = Quaternion(0, 0.7, 0, 0.7)
-            q = fuse.updateIMU(q0, gyr=gyro[epoch - 1, :] * (np.pi / 180), acc=acc[epoch - 1, :])
+            q = fuse.updateIMU(
+                q0, gyr=gyro[epoch - 1, :] * (np.pi / 180), acc=acc[epoch - 1, :]
+            )
             q = Quaternion(q)
             # q = compact(q)
             nq = q.normalized

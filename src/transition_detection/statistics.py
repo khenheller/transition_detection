@@ -1,4 +1,7 @@
-# import numpy as np
+import numpy as np
+from test_types import *
+from is_empty import *
+
 # import scipy.io
 # pt = scipy.io.loadmat('pt.mat')
 # pt = pt['PT']
@@ -29,6 +32,13 @@ def performance_detection(pt: np.ndarray, s2sit_index: np.ndarray, s2stand_index
     s2stand_precision: precision of sit-to-stand detection
     sitting_acc: accuracy of total sitting time
     """
+
+    test_types([pt, s2sit_index, s2stand_index, ix_stillness, lying_vec_lumbar, sitting_vec, fs],
+               ["pt", "s2sit_index", "s2stand_index", "ix_stillness", "lying_vec_lumbar", "sitting_vec", "fs"],
+               [np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, int])
+    is_empty([pt, s2sit_index, s2stand_index, ix_stillness, lying_vec_lumbar, sitting_vec, fs],
+               ["pt", "s2sit_index", "s2stand_index", "ix_stillness", "lying_vec_lumbar", "sitting_vec", "fs"])
+
     pt_s2sit = pt[pt[:, 1] == 2, 0]  # posture transitions from stand to sit
     pt_s2stand = pt[pt[:, 1] == 1, 0]  # posture transitions from sit to stand
 
@@ -75,7 +85,7 @@ def performance_detection(pt: np.ndarray, s2sit_index: np.ndarray, s2stand_index
     s2stand_precision = tp_s2stand/(tp_s2stand + fp_s2stand) * 100  # calculate precision of sit to stand detection
     print(f"Sit to stand sensitivity: {s2stand_sensitivity} \nSit to stand precision: {s2stand_precision}")
 
-    ix_sitting = np.zeros(ix_stillnes.shape())
+    ix_sitting = np.zeros(ix_stillness.shape())
     for k in range(0, len(pt_s2sit)):
         ix_sitting[pt_s2sit[k]: pt_s2stand[k]] = 1
     ix_sitting[lying_vec_lumbar == 1] = 0  # reset sitting indices where lumbar sensor detected lying

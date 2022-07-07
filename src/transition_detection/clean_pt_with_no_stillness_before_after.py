@@ -19,7 +19,7 @@ def clean_pt(
 
     Returns
     -------
-    locs
+    locs:clean array of the location of the transiotions
     """
 
     test_types([locs, ix_stillnes,fs, s_start_pt, s_end_pt], ["locs", "ix_stillnes", "fs", "s_start_pt", "s_end_pt"], [np.ndarray,np.ndarray, int, np.ndarray,np.ndarray])
@@ -43,6 +43,6 @@ def clean_pt(
         if not np.any(c):
             delete_locs = [[delete_locs],[ii]]
             continue
+            
     locs[delete_locs] = []  
-    return locs         
-
+    return locs
