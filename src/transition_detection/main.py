@@ -1,15 +1,7 @@
-import scipy
-from scipy import io
-import os
-import mat73
-from os.path import dirname, join as pjoin
-import scipy.io as sio
-import pandas as pd
-import numpy as np
-import scipy.signal
-import matplotlib.pyplot as plt
-
+from src.transition_detection.clean_pt_with_no_stillness_before_after import clean_pt
 from src.transition_detection.files_lists import files_lists
+from src.transition_detection.find_pt_with_theta import find_pt_with_theta
+from src.transition_detection.find_stillness import find_stillness
 from src.transition_detection.load_data import load_data
 from src.transition_detection.preprocessing import preprocessing
 from src.transition_detection.find_stillness import find_stillness
@@ -34,6 +26,11 @@ for ff in range(len(listing_lumbar)):
     (lumbar_acc, walking_vec_Lumbar, lying_vec_lumbar, thigh_acc, walking_vec_thigh, laying_vec_thigh) = load_data(ff,listing_acc_path,listing_gait_path,listing_lying_path,listing_acc,listing_gait,listing_lying,listing_thigh,listing_lumbar)
 
     (d1,d2,d3)=preprocessing(lumbar_acc)
+    print("returned from preprocessing")
+    print("d1", d1)
+    print("d2", d2)
+    print("d3", d3)
+
     # {'acc': acc, 'v': v, 'ml': ml, 'ap': ap},
     # {'gyro': gyro, 'yaw': yaw, 'pitch': pitch, 'roll': roll},
     # {'magnitude': a_mag, 'fs': fs}
@@ -100,7 +97,7 @@ for ff in range(len(listing_lumbar)):
 
 #Elimination2 #428-437
 
-#find transitions from sit to stand #439-450
+#find transitions from sit to stand #439-450 maayan
 
 # delete still periods #452-488
 
